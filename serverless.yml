@@ -1,0 +1,16 @@
+service: Receipt-Scanner
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: dev
+  region: ap-southeast-2
+
+functions:
+  entrypoint:
+    handler: handler.entrypoint
+    events:
+      - http:
+          path: /goodshit
+          method: get
+
