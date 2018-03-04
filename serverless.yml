@@ -2,15 +2,42 @@ service: Receipt-Scanner
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: nodejs6.10
   stage: dev
   region: ap-southeast-2
 
+# you can add statements to the Lambda function's IAM Role here
+iamRoleStatements:
+ - Effect: "Allow"
+   Action:
+     - "s3:ListBucket"
+   Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "receipt-scanner" } ] ]  }
+ - Effect: "Allow"
+   Action:
+     - "s3:PutObject"
+   Resource:
+     Fn::Join:
+       - ""
+       - - "arn:aws:s3:::"
+         - "Ref" : "receipt-scanner"
+         - "/*"
+
 functions:
-  entrypoint:
-    handler: handler.entrypoint
+  hello:
+    handler: handler.hello
     events:
       - http:
-          path: /goodshit
-          method: get
+          path: /test
+          method: POST
 
+# you can add CloudFormation resource templates here
+resources:
+  Resources:
+    S3BucketImage:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: receipt-scanner
+  Outputs:
+    S3BucketOutput:
+      Value: 
+        Fn::GetAtt: [ S3BucketImage, Arn ]
