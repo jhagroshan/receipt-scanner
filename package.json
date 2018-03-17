@@ -1,0 +1,15 @@
+{
+  "name": "test-scanner",
+  "version": "1.0.0",
+  "description": "Google Vision text recognition",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm rebuild grpc --target=6.1.0 --target_arch=x64 --target_platform=linux --target_libc=glibc"
+  },
+  "author": "Roshan Singh",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "0.8.x",
+    "@google-cloud/vision": "0.10.x"
+  }
+}
