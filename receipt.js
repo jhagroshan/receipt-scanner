@@ -104,7 +104,8 @@ module.exports = {
 
           // google vision 'cuts' word by space (?), so sometime we see the amount 2, 000 is cut into 
           // 2 words, need to join this into a number.
-          if (word.startsWith(',') || word.startsWith('.')) {  
+          if (word.startsWith('$')) {result.push(word)}
+          else if (word.startsWith(',') || word.startsWith('.')) {  
             word = word.replace(/,/g,"");
             var num = Number(word);
             if (!num) {
